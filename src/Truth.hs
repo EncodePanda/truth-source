@@ -35,7 +35,7 @@ loadTests :: Report -> m Tests
 loadTests = undefined
 
 combine :: Features -> Tests -> Features
-combine features tests = undefined
+combine features tests = features
 
 toDoc :: Features -> Pandoc
 toDoc features = undefined
