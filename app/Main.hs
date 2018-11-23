@@ -1,5 +1,6 @@
 module Main where
 
+import Control.Lens
 import Text.Pandoc.Options
 import Text.Pandoc.Class
 import Text.Pandoc.Error
@@ -35,7 +36,7 @@ program config = do
 serialize :: Config -> Either PandocError Text -> IO ()
 serialize _ (Left(error)) = putStrLn $ show error
 serialize config (Right(html)) = do
-  let output = _output config
+  let output = config^.outputFile
   putStrLn $ "Store HTML to " ++ output ++ "..."
   TIO.writeFile output html
 

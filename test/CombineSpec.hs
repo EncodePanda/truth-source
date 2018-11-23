@@ -4,7 +4,7 @@ import TestsArbitrary
 import FeaturesArbitrary
 import Test.Hspec
 import Test.QuickCheck
-
+import Control.Lens
 import Feature
 import Tests
 import Truth
@@ -16,7 +16,6 @@ spec :: Spec
 spec =
   describe "combine" $ do
     it "should not modify list of features" $ do
-      property (\(fs, ts) -> featuresName (combine fs ts) == featuresName fs)
+      property (\(fs, ts) -> (combine fs ts) ^.. featureNames == fs ^.. featureNames)
     where
-      featuresName :: Features -> [String]
-      featuresName (Features fs) = fmap _name fs
+      featureNames = features.traverse.featureName
