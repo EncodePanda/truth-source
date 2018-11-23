@@ -11,5 +11,5 @@ import Config
 
 generate :: (PandocMonad m, MonadIO m) => Config -> m Pandoc
 generate config = do
-  features <- liftIO $ readFile $ _featuresFile config
+  features <- liftIO $ readFile $ _features config
   readMarkdown def (pack features)
