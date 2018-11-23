@@ -1,48 +1,22 @@
 module CombineSpec where
 
+import TestsArbitrary
+import FeaturesArbitrary
 import Test.Hspec
 import Test.QuickCheck
 
-import Truth
 import Feature
 import Tests
-
-instance Arbitrary Features where
-  arbitrary = do
-    features <- listOf arbitrary
-    return $ Features features
-
-instance Arbitrary Feature where
-  arbitrary = do
-    name <- arbitrary
-    userStories <- listOf arbitrary
-    return $ Feature name userStories
-
-instance Arbitrary UserStory where
-  arbitrary = do
-    desc <- arbitrary
-    return $ UserStory desc []
-
-instance Arbitrary Criteria where
-  arbitrary = do
-    name <- arbitrary
-    status <- arbitrary
-    steps <- listOf arbitrary
-    return $ Criteria name status steps
-
-instance Arbitrary Step where
-  arbitrary = fmap Step arbitrary
-
-instance Arbitrary Status where
-  arbitrary = elements [Done, NotDone]
-
-
+import Truth
 
 main :: IO ()
 main = hspec spec
 
 spec :: Spec
-spec = describe "combine" $ do
-  it "should not modify list of features" $ do
-    property (\fs -> combine fs (Tests []) == fs)
-
+spec =
+  describe "combine" $ do
+    it "should not modify list of features" $ do
+      property (\(fs, ts) -> featuresName (combine fs ts) == featuresName fs)
+    where
+      featuresName :: Features -> [String]
+      featuresName (Features fs) = fmap _name fs
