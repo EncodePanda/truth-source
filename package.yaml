@@ -26,6 +26,10 @@ dependencies:
 - pandoc-types
 - text
 - mtl
+- aeson
+- lens-aeson
+- lens
+- bytestring
 
 library:
   source-dirs: src
@@ -53,3 +57,4 @@ tests:
     - truth-source
     - QuickCheck
     - hspec
+    - raw-strings-qq
