@@ -1,13 +1,19 @@
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TemplateHaskell #-}
 module Config where
 
+import Control.Lens.TH
+import GHC.Generics
 import Options.Applicative
 import Data.Semigroup ((<>))
 
-data Config = Config { _features :: String
-                     , _tests :: String
-                     , _output :: String
+data Config = Config { _featuresFile :: String
+                     , _testsFile :: String
+                     , _outputFile :: String
                      } deriving Show
 
+makeLenses ''Config
 
 parser :: Parser Config
 parser = Config
