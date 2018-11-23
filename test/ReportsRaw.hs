@@ -119,3 +119,133 @@ report_one_passed =
     ]
     }
     |]
+
+report_one_failed = [r|
+{
+    "data": [
+        {
+            "type": "report",
+            "id": 1,
+            "attributes": {
+                "environment": {
+                    "Python": "3.7.1",
+                    "Platform": "Darwin-18.2.0-x86_64-i386-64bit"
+                },
+                "summary": {
+                    "failed": 1,
+                    "num_tests": 1,
+                    "duration": 35.89959502220154
+                },
+                "created_at": "2018-11-23 21:54:16.275994"
+            },
+            "relationships": {
+                "tests": {
+                    "data": [
+                        {
+                            "id": 1,
+                            "type": "test"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "included": [
+        {
+            "id": 1,
+            "type": "test",
+            "attributes": {
+                "name": "test/test_genesis_ceremony.py::test_successful_genesis_ceremony",
+                "duration": 35.86463785171509,
+                "run_index": 0,
+                "setup": {
+                    "name": "setup",
+                    "duration": 0.006523847579956055,
+                    "outcome": "passed"
+                },
+                "call": {
+                    "name": "call",
+                    "duration": 35.84186291694641,
+                    "outcome": "failed",
+                    "longrepr": "request = <FixtureRequest for <Function 'test_successful_genesis_ceremony'>>\ndocker_client_session = <docker.client.DockerClient object at 0x10301ec50>\n\n    def test_successful_genesis_ceremony(request, docker_client_session):\n        cli_options = {\n            '--required-sigs':  2,\n            '--duration':       '5 min',\n            '--interval':       '10 sec',\n        }\n        with custom_system(request, docker_client_session, validator_keys=[VALIDATOR_A_KEYS, VALIDATOR_B_KEYS]) as system:\n            with start_bootstrap(\n                system.docker,\n                system.config.node_startup_timeout,\n                system.config.rnode_timeout,\n                system.validators_data,\n                container_name='ceremony-master',\n                cli_options=cli_options,\n            ) as bootstrap:\n                # wait_for(sent_unapproved_block, ...\n>               assert False\nE               assert False\n\ntest/test_genesis_ceremony.py:43: AssertionError",
+                    "log": "rnode.py                   331 INFO     Using key_file=/Users/dzajkowski/workspaces/ws_pyrofex/rchain/integration-testing/resources/bootstrap_certificate/node.key.pem and cert_file=/Users/dzajkowski/workspaces/ws_pyrofex/rchain/integration-testing/resources/bootstrap_certificate/node.certificate.pem\nrnode.py                   288 INFO     Using _JAVA_OPTIONS: None\nwait.py                     17 INFO     Waiting maximum timeout=50. Patience please!\nwait.py                     18 INFO     Wait condition is: `node_logs(ceremony-master.rchain-bbjxd) contains regex 'coop.rchain.node.NodeRuntime - Listening for traffic on rnode'`\nwait.py                     46 INFO     Condition not satisfied yet (node_logs(ceremony-master.rchain-bbjxd) doesn't contain regex 'coop.rchain.node.NodeRuntime - Listening for traffic on rnode'). Time left: 50s. Sleeping 7s...\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:53:43.700 [main] INFO  c.r.n.configuration.Configuration$ - Using configuration file: /var/lib/rnode/rnode.toml\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:53:43.943 [main] WARN  c.r.n.configuration.Configuration$ - Configuration file /var/lib/rnode/rnode.toml not found\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:53:44.171 [main] INFO  c.r.n.configuration.Configuration$ - Starting with profile docker\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: WARNING: An illegal reflective access operation has occurred\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: WARNING: Illegal reflective access by com.google.protobuf.UnsafeUtil (file:/opt/docker/lib/com.google.protobuf.protobuf-java-3.5.1.jar) to field java.nio.Buffer.address\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: WARNING: Please consider reporting this to the maintainers of com.google.protobuf.UnsafeUtil\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: WARNING: All illegal access operations will be denied in a future release\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:53:44.915 [main] INFO  coop.rchain.node.NodeEnvironment$ - Using data dir: /var/lib/rnode\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:53:45.458 [main] INFO  coop.rchain.comm.UPnP$ - trying to open ports using UPnP....\nwait.py                     46 INFO     Condition not satisfied yet (same as above). Time left: 43s. Sleeping 6s...\nwait.py                     46 INFO     Condition not satisfied yet (same as above). Time left: 37s. Sleeping 5s...\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:53:54.529 [main] INFO  coop.rchain.comm.UPnP$ - INFO - No gateway devices found\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:53:54.531 [main] INFO  coop.rchain.comm.UPnP$ - No need to open any port\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:53:57.976 [node-runner-17] INFO  coop.rchain.casper.genesis.Genesis$ - Found default file /var/lib/rnode/genesis/bonds.txt.\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:53:57.987 [node-runner-17] WARN  coop.rchain.casper.genesis.Genesis$ - No wallets file specified and no default file found. No wallets will exist at genesis.\nwait.py                     46 INFO     Condition not satisfied yet (same as above). Time left: 32s. Sleeping 4s...\nwait.py                     46 INFO     Condition not satisfied yet (same as above). Time left: 28s. Sleeping 4s...\nwait.py                     46 INFO     Condition not satisfied yet (same as above). Time left: 24s. Sleeping 3s...\nwait.py                     46 INFO     Condition not satisfied yet (same as above). Time left: 21s. Sleeping 3s...\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:54:12.833 [node-runner-18] INFO  c.r.c.u.c.ApproveBlockProtocol$ApproveBlockProtocolImpl - APPROVAL: Beginning send of UnapprovedBlock b2bca1cd96... to peers...\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:54:12.873 [node-runner-18] INFO  c.r.comm.transport.TcpTransportLayer - stream to List() blob\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:54:12.875 [node-runner-18] INFO  c.r.c.u.c.ApproveBlockProtocol$ApproveBlockProtocolImpl - APPROVAL: Sent UnapprovedBlock b2bca1cd96... to peers.\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:54:12.952 [node-runner-18] INFO  c.r.c.u.c.ApproveBlockProtocol$ApproveBlockProtocolImpl - APPROVAL: Beginning send of ApprovedBlock b2bca1cd96... to peers...\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:54:12.954 [node-runner-18] INFO  c.r.comm.transport.TcpTransportLayer - stream to List() blob\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:54:12.955 [node-runner-18] INFO  c.r.c.u.c.ApproveBlockProtocol$ApproveBlockProtocolImpl - APPROVAL: Sent ApprovedBlock b2bca1cd96... to peers.\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:54:13.135 [node-runner-17] INFO  coop.rchain.node.NodeRuntime - Starting stand-alone node.\nwait.py                     46 INFO     Condition not satisfied yet (same as above). Time left: 18s. Sleeping 2s...\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:54:13.884 [node-runner-17] WARN  kamon.zipkin.ZipkinReporter - For full Zipkin compatibility enable `kamon.trace.join-remote-parents-with-same-span-id` to preserve span id across client/server sides of a Span.\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:54:13.889 [kamon.zipkin.ZipkinReporter] INFO  kamon.zipkin.ZipkinReporter - Started the Zipkin reporter.\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:54:14.106 [node-runner-17] INFO  coop.rchain.node.NodeRuntime - gRPC external server started at ceremony-master.rchain-bbjxd:40401\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:54:14.112 [node-runner-17] INFO  coop.rchain.node.NodeRuntime - gRPC internal server started at ceremony-master.rchain-bbjxd:40402\nrnode.py                   247 INFO     \tceremony-master.rchain-bbjxd: 20:54:15.312 [node-runner-17] INFO  coop.rchain.node.NodeRuntime - Listening for traffic on rnode://cb74ba04085574e9f0102cc13d39f0c72219c5bb@ceremony-master.rchain-bbjxd?protocol=40400&discovery=40404.\nwait.py                     27 INFO     Condition satisfied after 34s. Returning <re.Match object; span=(2986, 3047), match='coop.rchain.node.NodeRuntime - Listening for traf>\ndocker.py                   17 INFO     Removing docker network rchain-bbjxd"
+                },
+                "teardown": {
+                    "name": "teardown",
+                    "duration": 0.009727239608764648,
+                    "outcome": "passed"
+                },
+                "outcome": "failed"
+            }
+        }
+    ]
+}
+|]
+
+
+report_mixed = [r|
+{
+    "included": [
+        {
+            "id": 1,
+            "type": "test",
+            "attributes": {
+                "name": "test/test_genesis_ceremony.py::test_successful_genesis_ceremony",
+                "duration": 35.86463785171509,
+                "run_index": 0,
+                "outcome": "passed"
+            }
+        },
+        {
+            "id": 1,
+            "type": "test",
+            "attributes": {
+                "name": "test/test_genesis_ceremony.py::test_successful_genesis_ceremony",
+                "duration": 35.86463785171509,
+                "run_index": 0,
+                "outcome": "skipped"
+            }
+        },
+        {
+            "id": 1,
+            "type": "test",
+            "attributes": {
+                "name": "test/test_genesis_ceremony.py::test_successful_genesis_ceremony",
+                "duration": 35.86463785171509,
+                "run_index": 0,
+                "outcome": "skipped"
+            }
+        },
+        {
+            "id": 1,
+            "type": "test",
+            "attributes": {
+                "name": "test/test_genesis_ceremony.py::test_successful_genesis_ceremony",
+                "duration": 35.86463785171509,
+                "run_index": 0,
+                "outcome": "passed"
+            }
+        },
+        {
+            "id": 1,
+            "type": "test",
+            "attributes": {
+                "name": "test/test_genesis_ceremony.py::test_successful_genesis_ceremony",
+                "duration": 35.86463785171509,
+                "run_index": 0,
+                "outcome": "failed"
+            }
+        },
+        {
+            "id": 1,
+            "type": "test",
+            "attributes": {
+                "name": "test/test_genesis_ceremony.py::test_successful_genesis_ceremony",
+                "duration": 35.86463785171509,
+                "run_index": 0,
+                "outcome": "failed"
+            }
+        }
+    ]
+}
+|]
