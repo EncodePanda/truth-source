@@ -29,4 +29,5 @@ data Status = Done | NotDone
 
 makeLenses ''Features
 makeLenses ''Feature
+makeLenses ''UserStory
 makeLenses ''Criteria
