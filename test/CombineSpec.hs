@@ -19,6 +19,9 @@ spec =
       property (\(fs, ts) -> (combine fs ts) ^.. featureNames == fs ^.. featureNames)
     it "should not modify list of user stories (description) per feature" $ do
       property (\(fs, ts) -> (combine fs ts) ^.. userStoryNames == fs ^.. userStoryNames)
+    it "should not modify list of criterna (name) per user story" $ do
+      property (\(fs, ts) -> (combine fs ts) ^.. criteriaNames == fs ^.. criteriaNames)
     where
       featureNames = features.traverse.featureName
       userStoryNames = features.traverse.userStories.traverse.userStoryDesc
+      criteriaNames = features.traverse.userStories.traverse.criteria.traverse.criteriaName
