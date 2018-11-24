@@ -24,7 +24,7 @@ data Criteria = Criteria { _criteriaName :: String
 newtype Step = Step String
   deriving (Show, Eq, Generic)
 
-data Status = Done | NotDone
+data Status = Done | NotDone | Missing
   deriving (Show, Eq, Generic)
 
 makeLenses ''Features

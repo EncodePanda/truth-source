@@ -11,7 +11,7 @@ import Text.Pandoc.Readers.Markdown
 import Text.Pandoc.Definition
 import Control.Monad.IO.Class
 import Control.Lens
-
+import Control.Lens.Each
 
 generate :: (PandocMonad m, MonadIO m) => Config -> m Pandoc
 generate config = do
@@ -37,6 +37,7 @@ loadTests :: Report -> m Tests
 loadTests = undefined
 
 combine :: Features -> Tests -> Features
+combine fs (Tests []) = fs & features.traverse.userStories.traverse.criteria.traverse.status .~  Missing
 combine fs ts = fs
 
 toDoc :: Features -> Pandoc
