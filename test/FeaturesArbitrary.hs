@@ -3,32 +3,39 @@ module FeaturesArbitrary where
 import Test.QuickCheck
 import Feature
 
+limitedListOf :: Gen a -> Gen [a]
+limitedListOf gen = do
+  max <- elements [5..20]
+  list <- listOf gen
+  return $ take max list
+
 instance Arbitrary Features where
   arbitrary = do
-    features <- listOf arbitrary
+    features <- limitedListOf arbitrary
     return $ Features features
 
 instance Arbitrary Feature where
   arbitrary = do
     name <- arbitrary
-    userStories <- listOf arbitrary
+    userStories <- limitedListOf arbitrary
     return $ Feature name userStories
 
 instance Arbitrary UserStory where
   arbitrary = do
     desc <- arbitrary
-    return $ UserStory desc []
+    criterias <- limitedListOf arbitrary
+    return $ UserStory desc criterias
 
 instance Arbitrary Criteria where
   arbitrary = do
     name <- arbitrary
     status <- arbitrary
-    steps <- listOf arbitrary
+    steps <- limitedListOf arbitrary
     return $ Criteria name status steps
 
 instance Arbitrary Step where
   arbitrary = fmap Step arbitrary
 
 instance Arbitrary Status where
-  arbitrary = elements [Done, NotDone]
+  arbitrary = elements [NotDone]
 
