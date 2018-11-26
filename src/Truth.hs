@@ -62,7 +62,10 @@ summary :: Features -> Pandoc
 summary features = undefined
 
 details :: Features -> Pandoc
-details features = undefined
+details (Features fs) = Pandoc nullMeta (fmap feature2Name fs)
+  where
+    feature2Name :: Feature -> Block
+    feature2Name f = Header 2 nullAttr [Str (f^.featureName)]
 
 toDoc :: Features -> Pandoc
 toDoc features = summary features <> details features
