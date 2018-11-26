@@ -37,7 +37,7 @@ readTests path = do
     parseReport (Just ts) = ts
 
 loadFeatures :: Pandoc -> Features
-loadFeatures p = Features []
+loadFeatures p = extractFeaturesFromPandoc p
 
 combine :: Features -> Tests -> Features
 combine fs (Tests []) = fs & features.traverse.userStories.traverse.criteria.traverse.status .~  Missing

@@ -97,4 +97,10 @@ sample = [r|
 * call `rnode deploy` with invalid contract on `ceremonyMaster`
 * assert a error logs on std out
 * `rnode deploy` exit code should be 1
+
+
+# Other stuff
+
+* just for testing purposes
+
 |]
