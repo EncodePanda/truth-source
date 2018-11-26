@@ -27,14 +27,29 @@ spec =
       let fs = featuresWithTest "test-name"
       let ts = Tests [Test "test-name" Passed]
       (combine fs ts)^..allStatuses `shouldBe` [Done]
+    it "should mark criteria as NotDone if test not implemented" $ do
+      let fs = featuresWithTest "test-name"
+      let ts = Tests [Test "test-name" NotImplemented]
+      (combine fs ts)^..allStatuses `shouldBe` [(NotDone "not implemented")]
+    it "should mark criteria as NotDone if test failed" $ do
+      let fs = featuresWithTest "test-name"
+      let ts = Tests [Test "test-name" Failed]
+      (combine fs ts)^..allStatuses `shouldBe` [(NotDone "failed")]
+    it "should mark criteria as NotDone if test failed" $ do
+      let fs = featuresWithTest "test-name"
+      let ts = Tests [Test "test-name" Regression]
+      (combine fs ts)^..allStatuses `shouldBe` [(NotDone "regression")]
+    it "should mark criteria as NotDone if unknown" $ do
+      let fs = featuresWithTest "test-name"
+      let ts = Tests [Test "test-name" Unknown]
+      (combine fs ts)^..allStatuses `shouldBe` [(NotDone "unknown")]
     where
       allNames = features.traverse.featureName
       allUserStories = features.traverse.userStories.traverse.userStoryDesc
       allStatuses = features.traverse.userStories.traverse.criteria.traverse.status
 
-
 featuresWithTest :: String -> Features
 featuresWithTest testName = Features $ [Feature "n" [UserStory "us" [(criteria testName)]]]
   where
     criteria :: String -> Criteria
-    criteria testName = Criteria "c" testName NotDone []
+    criteria testName = Criteria "c" testName Missing []

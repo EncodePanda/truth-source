@@ -18,7 +18,7 @@ import Data.Foldable
 generate :: (PandocMonad m, MonadIO m) => Config -> m Pandoc
 generate config = do
   doc        <- readFeaturesDoc $ config^.featuresFile
-  features   <- loadFeatures doc
+  features   <- return $ loadFeatures doc
   tests      <- readTests $ config^.testsFile
   let result = combine features tests
   return $ toDoc result
@@ -37,8 +37,8 @@ readTests path = do
     parseReport (Nothing) = error "could not parse report"
     parseReport (Just ts) = ts
 
-loadFeatures :: Pandoc -> m Features
-loadFeatures = undefined
+loadFeatures :: Pandoc -> Features
+loadFeatures p = extractFeaturesFromPandoc p
 
 combine :: Features -> Tests -> Features
 combine fs (Tests []) = fs & features.traverse.userStories.traverse.criteria.traverse.status .~  Missing
@@ -50,10 +50,10 @@ combine fs ts = over allCriteria (fmap (modify (ts^.tests))) fs
        (Just t) -> status .~ (testToStatus (t^.testStatus)) $ c
 
      testToStatus Passed = Done
-     testToStatus NotImplemented = NotDone
-     testToStatus Failed = NotDone
-     testToStatus Regression = NotDone
-     testToStatus Unknown = NotDone
+     testToStatus NotImplemented = NotDone "not implemented"
+     testToStatus Failed = NotDone "failed"
+     testToStatus Regression = NotDone "regression"
+     testToStatus Unknown = NotDone "unknown"
 
      findTest :: [Test] -> Criteria -> Maybe Test
      findTest ts c = find (\t -> t^.testDesc == c^.testName) ts
@@ -63,7 +63,10 @@ summary (Features []) = Pandoc nullMeta [Null]
 summary features = Pandoc nullMeta [Table [Str "Features"] [AlignLeft] [0] [] []]
 
 details :: Features -> Pandoc
-details features = undefined
+details (Features fs) = Pandoc nullMeta (fmap feature2Name fs)
+  where
+    feature2Name :: Feature -> Block
+    feature2Name f = Header 2 nullAttr [Str (f^.featureName)]
 
 toDoc :: Features -> Pandoc
 toDoc features = summary features <> details features

@@ -44,4 +44,4 @@ instance Arbitrary Step where
   arbitrary = fmap Step arbitrary
 
 instance Arbitrary Status where
-  arbitrary = elements [NotDone]
+  arbitrary = elements [Missing]
