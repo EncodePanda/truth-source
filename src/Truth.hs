@@ -18,7 +18,7 @@ import Data.Foldable
 generate :: (PandocMonad m, MonadIO m) => Config -> m Pandoc
 generate config = do
   doc        <- readFeaturesDoc $ config^.featuresFile
-  features   <- loadFeatures doc
+  features   <- return $ loadFeatures doc
   tests      <- readTests $ config^.testsFile
   let result = combine features tests
   return $ toDoc result
@@ -37,8 +37,8 @@ readTests path = do
     parseReport (Nothing) = error "could not parse report"
     parseReport (Just ts) = ts
 
-loadFeatures :: Pandoc -> m Features
-loadFeatures = undefined
+loadFeatures :: Pandoc -> Features
+loadFeatures p = extractFeaturesFromPandoc p
 
 combine :: Features -> Tests -> Features
 combine fs (Tests []) = fs & features.traverse.userStories.traverse.criteria.traverse.status .~  Missing
