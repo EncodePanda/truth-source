@@ -15,13 +15,13 @@ import Control.Lens
 import Control.Lens.Each
 import Data.Foldable
 
-generate :: (PandocMonad m, MonadIO m) => Config -> m Pandoc
+generate :: (PandocMonad m, MonadIO m) => Config -> m Features
 generate config = do
   doc        <- readFeaturesDoc $ config^.featuresFile
   features   <- return $ loadFeatures doc
   tests      <- readTests $ config^.testsFile
   let result = combine features tests
-  return $ toDoc result
+  return $ result
 
 readFeaturesDoc :: (PandocMonad m, MonadIO m) => String -> m Pandoc
 readFeaturesDoc path = do
@@ -57,16 +57,3 @@ combine fs ts = over allCriteria (fmap (modify (ts^.tests))) fs
 
      findTest :: [Test] -> Criteria -> Maybe Test
      findTest ts c = find (\t -> t^.testDesc == c^.testName) ts
-
-summary :: Features -> Pandoc
-summary (Features []) = Pandoc nullMeta [Null]
-summary features = Pandoc nullMeta [Table [Str "Features"] [AlignLeft] [0] [] []]
-
-details :: Features -> Pandoc
-details (Features fs) = Pandoc nullMeta (fmap feature2Name fs)
-  where
-    feature2Name :: Feature -> Block
-    feature2Name f = Header 2 nullAttr [Str (f^.featureName)]
-
-toDoc :: Features -> Pandoc
-toDoc features = summary features <> details features
