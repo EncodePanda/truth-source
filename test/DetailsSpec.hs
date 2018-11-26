@@ -7,6 +7,7 @@ import Control.Lens
 import Feature
 import Tests
 import Truth
+import Presentation
 import qualified Text.Pandoc as PC
 import Data.Text
 import Text.Pandoc.Readers.Markdown
@@ -24,7 +25,7 @@ spec =
       checkDetails (Features [Feature "Name" []]) [text|
         ## Name
       |]
-  
+
     where
       checkDetails :: Features -> Text -> IO ()
       checkDetails features expected = do
@@ -33,7 +34,6 @@ spec =
 
       parseMarkdown :: Text -> IO PC.Pandoc
       parseMarkdown content = fmap mapRes (PC.runIO $ readMarkdown def content)
-      
+
       mapRes (Left _) = error "blee"
       mapRes (Right d) = d
-

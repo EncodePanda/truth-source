@@ -10,6 +10,7 @@ import Control.Monad.Except
 import Options.Applicative
 import qualified Config as C
 import qualified Truth as T
+import qualified Presentation as P
 import Text.Pandoc.Writers.HTML
 import Config
 
@@ -29,7 +30,8 @@ main = do
 program :: C.Config -> PandocIO Text
 program config = do
   liftIO $ putStrLn "Generate document..."
-  pandoc <- T.generate config
+  features <- T.generate config
+  pandoc <- P.present features
   liftIO $ putStrLn "Write document to HTML..."
   writeHtml4String def pandoc
 
@@ -39,4 +41,3 @@ serialize config (Right(html)) = do
   let output = config^.outputFile
   putStrLn $ "Store HTML to " ++ output ++ "..."
   TIO.writeFile output html
-

@@ -8,7 +8,7 @@ import Text.Pandoc
 import Control.Lens
 import Feature
 import Tests
-import Truth
+import Presentation
 
 spec :: Spec
 spec =
