@@ -3,6 +3,7 @@
 {-# LANGUAGE TemplateHaskell #-}
 module Feature where
 
+import Control.Lens
 import Control.Lens.TH
 import GHC.Generics
 
@@ -32,3 +33,6 @@ makeLenses ''Features
 makeLenses ''Feature
 makeLenses ''UserStory
 makeLenses ''Criteria
+
+allCriteria :: Traversal' Features [Criteria]
+allCriteria = features.traverse.userStories.traverse.criteria

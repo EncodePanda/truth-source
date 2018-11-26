@@ -12,6 +12,7 @@ import Text.Pandoc.Definition
 import Control.Monad.IO.Class
 import Control.Lens
 import Control.Lens.Each
+import Data.Foldable
 
 generate :: (PandocMonad m, MonadIO m) => Config -> m Pandoc
 generate config = do
@@ -38,7 +39,21 @@ loadTests = undefined
 
 combine :: Features -> Tests -> Features
 combine fs (Tests []) = fs & features.traverse.userStories.traverse.criteria.traverse.status .~  Missing
-combine fs ts = fs
+combine fs ts = over allCriteria (fmap (modify (ts^.tests))) fs
+  where
+     modify :: [Test] -> Criteria -> Criteria
+     modify ts c = case (findTest ts c) of
+       Nothing  -> status .~ Missing $ c
+       (Just t) -> status .~ (testToStatus (t^.testStatus)) $ c
+
+     testToStatus Passed = Done
+     testToStatus NotImplemented = NotDone
+     testToStatus Failed = NotDone
+     testToStatus Regression = NotDone
+     testToStatus Unknown = NotDone
+
+     findTest :: [Test] -> Criteria -> Maybe Test
+     findTest ts c = find (\t -> t^.testDesc == c^.testName) ts
 
 toDoc :: Features -> Pandoc
 toDoc features = undefined
