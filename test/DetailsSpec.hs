@@ -24,7 +24,24 @@ spec =
       checkDetails (Features [Feature "Name" []]) [text|
         ## Name
       |]
-  
+
+    it "should serialize a sample report" $ do
+      let sampleReport = Features [Feature "F1" [UserStory "UC1" [Criteria "AC1" "test1" Missing [Step "step1", Step "step2"]]]]
+
+      checkDetails sampleReport [text|
+        ## F1
+
+        ### UC: UC1
+
+        #### AC: AC1
+
+        ##### test: test1 - MISSING
+
+        ##### steps:
+        * step1
+        * step2
+      |]
+
     where
       checkDetails :: Features -> Text -> IO ()
       checkDetails features expected = do
@@ -33,7 +50,7 @@ spec =
 
       parseMarkdown :: Text -> IO PC.Pandoc
       parseMarkdown content = fmap mapRes (PC.runIO $ readMarkdown def content)
-      
+
       mapRes (Left _) = error "blee"
       mapRes (Right d) = d
 
