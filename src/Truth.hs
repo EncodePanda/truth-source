@@ -5,6 +5,7 @@ import Config
 import Feature
 import Tests
 import Data.Text (Text, pack)
+import Text.Pandoc
 import Text.Pandoc.Options
 import Text.Pandoc.Class
 import Text.Pandoc.Readers.Markdown
@@ -57,5 +58,11 @@ combine fs ts = over allCriteria (fmap (modify (ts^.tests))) fs
      findTest :: [Test] -> Criteria -> Maybe Test
      findTest ts c = find (\t -> t^.testDesc == c^.testName) ts
 
+summary :: Features -> Pandoc
+summary features = undefined
+
+details :: Features -> Pandoc
+details features = undefined
+
 toDoc :: Features -> Pandoc
-toDoc features = undefined
+toDoc features = summary features <> details features
