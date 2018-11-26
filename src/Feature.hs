@@ -17,6 +17,7 @@ data UserStory = UserStory { _userStoryDesc :: String
                            } deriving (Show, Eq, Generic)
 
 data Criteria = Criteria { _criteriaName :: String
+                         , _testName :: String
                          , _status :: Status
                          , _steps :: [Step]
                          } deriving (Show, Eq, Generic)
