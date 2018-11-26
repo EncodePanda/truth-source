@@ -59,7 +59,8 @@ combine fs ts = over allCriteria (fmap (modify (ts^.tests))) fs
      findTest ts c = find (\t -> t^.testDesc == c^.testName) ts
 
 summary :: Features -> Pandoc
-summary features = undefined
+summary (Features []) = Pandoc nullMeta [Null]
+summary features = Pandoc nullMeta [Table [Str "Features"] [AlignLeft] [0] [] []]
 
 details :: Features -> Pandoc
 details features = undefined
