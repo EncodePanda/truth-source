@@ -1,6 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Truth where
 
+import Config
 import Feature
 import Tests
 import Data.Text (Text, pack)
@@ -9,13 +10,14 @@ import Text.Pandoc.Class
 import Text.Pandoc.Readers.Markdown
 import Text.Pandoc.Definition
 import Control.Monad.IO.Class
-import Config
+import Control.Lens
+import Control.Lens.Each
 
 generate :: (PandocMonad m, MonadIO m) => Config -> m Pandoc
 generate config = do
-  doc        <- readFeaturesDoc $ _features config
+  doc        <- readFeaturesDoc $ config^.featuresFile
   features   <- loadFeatures doc
-  report     <- readReport $ _tests config
+  report     <- readReport $ config^.testsFile
   tests      <- loadTests report
   let result = combine features tests
   return $ toDoc result
@@ -35,7 +37,8 @@ loadTests :: Report -> m Tests
 loadTests = undefined
 
 combine :: Features -> Tests -> Features
-combine features tests = features
+combine fs (Tests []) = fs & features.traverse.userStories.traverse.criteria.traverse.status .~  Missing
+combine fs ts = fs
 
 toDoc :: Features -> Pandoc
 toDoc features = undefined

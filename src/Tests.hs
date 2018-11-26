@@ -36,10 +36,13 @@ makeLensesFor [("attributes", "attributesLens")] ''TestReport
 makeLensesFor [("outcome", "outcomeLens"), ("name", "nameLens"), ("setup", "setupLens")] ''Attributes
 makeLensesFor [("longrepr", "longreprLens")] ''Setup
 
-data Tests = Tests [Test] deriving (Eq, Show)
-data Test = Test String TestStatus deriving (Eq, Show)
+data Tests = Tests [Test]
+  deriving (Show, Eq)
+data Test = Test String TestStatus
+  deriving (Show, Eq)
 
 data TestStatus = Passed | NotImplemented | Failed | FailedRegression | Unknown deriving (Eq, Show)
+  deriving (Show, Eq)
 
 instance ToJSON TestReport
 instance FromJSON TestReport

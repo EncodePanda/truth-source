@@ -193,19 +193,7 @@ report_mixed = [r|
                 "name": "test/test_genesis_ceremony.py::test_successful_genesis_ceremony",
                 "duration": 35.86463785171509,
                 "run_index": 0,
-                "outcome": "passed",
-                "setup": {}
-            }
-        },
-        {
-            "id": 1,
-            "type": "test",
-            "attributes": {
-                "name": "test/test_genesis_ceremony.py::test_successful_genesis_ceremony",
-                "duration": 35.86463785171509,
-                "run_index": 0,
-                "outcome": "skipped",
-                "setup": {}
+                "outcome": "passed"
             }
         },
         {
@@ -225,8 +213,17 @@ report_mixed = [r|
                 "name": "test/test_genesis_ceremony.py::test_successful_genesis_ceremony",
                 "duration": 35.86463785171509,
                 "run_index": 0,
-                "outcome": "passed",
-                "setup": {}
+                "outcome": "skipped"
+            }
+        },
+        {
+            "id": 1,
+            "type": "test",
+            "attributes": {
+                "name": "test/test_genesis_ceremony.py::test_successful_genesis_ceremony",
+                "duration": 35.86463785171509,
+                "run_index": 0,
+                "outcome": "passed"
             }
         },
         {
@@ -246,8 +243,7 @@ report_mixed = [r|
                 "name": "test/test_genesis_ceremony.py::test_successful_genesis_ceremony",
                 "duration": 35.86463785171509,
                 "run_index": 0,
-                "outcome": "failed",
-                "setup": {}
+                "outcome": "failed"
             }
         }
     ]
