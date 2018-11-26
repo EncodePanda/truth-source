@@ -21,10 +21,10 @@ spec =
             it "should read a file report with one failed test" $ do
                 extractOutcome `fmap` T.parseRaw Raw.report_one_failed `shouldBe` Just ["failed"]
             it "should read a file report with mixed results" $ do
-                extractOutcome `fmap` T.parseRaw Raw.report_mixed `shouldBe` Just ["passed", "skipped", "skipped", "passed", "failed", "failed"]
+                extractOutcome `fmap` T.parseRaw Raw.report_mixed `shouldBe` Just ["passed", "skipped", "skipped", "passed", "failed", "failed", "xfailed"]
         describe "Reader" $ do
             it "should map report to tests" $ do
-                extractStatuses `fmap` (T.parse Raw.report_mixed) `shouldBe` Just [Passed,NotImplemented,NotImplemented,Passed,Failed,Failed]
+                extractStatuses `fmap` (T.parse Raw.report_mixed) `shouldBe` Just [Passed,NotImplemented,NotImplemented,Passed,Failed,Failed,Regression]
     where
         extractOutcome v = v ^.. includedLens . traverse . attributesLens . outcomeLens
         extractLongrepr v = v ^.. includedLens . traverse . attributesLens . setupLens . traverse . longreprLens

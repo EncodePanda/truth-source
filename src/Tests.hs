@@ -42,7 +42,7 @@ data Tests = Tests [Test]
 data Test = Test String TestStatus
   deriving (Show, Eq)
 
-data TestStatus = Passed | NotImplemented | Failed | FailedRegression | Unknown
+data TestStatus = Passed | NotImplemented | Failed | Regression | Unknown
   deriving (Show, Eq)
 
 instance ToJSON TestReport
@@ -70,6 +70,7 @@ transformToTest r =
             "skipped" -> NotImplemented
             "passed"  -> Passed
             "failed"  -> Failed
+            "xfailed" -> Regression
             _         -> Unknown
         mapResult :: Attributes -> Test
         mapResult t = Test (name t) (mapStatus (outcome t))
