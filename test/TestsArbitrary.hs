@@ -15,4 +15,4 @@ instance Arbitrary Test where
     return $ Test name status
 
 instance Arbitrary TestStatus where
-  arbitrary = elements [Passed, NotImplemented, Failed, FailedRegression]
+  arbitrary = elements [Passed, NotImplemented, Failed, Regression]
