@@ -8,16 +8,10 @@ import Feature
 import Tests
 import Truth
 import qualified Text.Pandoc as PC
-import DetailsRaw
 import Data.Text
 import Text.Pandoc.Readers.Markdown
 import Text.Pandoc.Options
-import Text.RawString.QQ
-
-singleFeature = 
-    [r|
-## Name
-    |]
+import NeatInterpolation
 
 spec :: Spec
 spec =
@@ -27,13 +21,18 @@ spec =
       putStrLn $ show pandoc
 
     it "should return a single feature as h2 (no white spaces)" $ do
-      temp <- sampleFeatures singleFeature
-      let fs = Features [Feature "Name" []]
-      details fs `shouldBe` temp
+      checkDetails (Features [Feature "Name" []]) [text|
+        ## Name
+      |]
   
     where
-      sampleFeatures :: String -> IO PC.Pandoc
-      sampleFeatures content = fmap mapRes (PC.runIO $ readMarkdown def (pack content))
+      checkDetails :: Features -> Text -> IO ()
+      checkDetails features expected = do
+        expectedPandoc <- parseMarkdown expected
+        details features `shouldBe` expectedPandoc
+
+      parseMarkdown :: Text -> IO PC.Pandoc
+      parseMarkdown content = fmap mapRes (PC.runIO $ readMarkdown def content)
       
       mapRes (Left _) = error "blee"
       mapRes (Right d) = d

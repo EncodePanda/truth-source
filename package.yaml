@@ -30,6 +30,7 @@ dependencies:
 - lens-aeson
 - lens
 - bytestring
+- neat-interpolation
 
 library:
   source-dirs: src
