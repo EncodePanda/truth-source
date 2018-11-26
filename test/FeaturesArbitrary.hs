@@ -5,7 +5,7 @@ import Feature
 
 limitedListOf :: Gen a -> Gen [a]
 limitedListOf gen = do
-  max <- elements [5..20]
+  max <- elements [5..15]
   list <- listOf gen
   return $ take max list
 
@@ -29,9 +29,10 @@ instance Arbitrary UserStory where
 instance Arbitrary Criteria where
   arbitrary = do
     name <- arbitrary
+    testName <- arbitrary
     status <- arbitrary
     steps <- limitedListOf arbitrary
-    return $ Criteria name status steps
+    return $ Criteria name testName status steps
 
 instance Arbitrary Step where
   arbitrary = fmap Step arbitrary
