@@ -17,8 +17,7 @@ generate :: (PandocMonad m, MonadIO m) => Config -> m Pandoc
 generate config = do
   doc        <- readFeaturesDoc $ config^.featuresFile
   features   <- loadFeatures doc
-  report     <- readReport $ config^.testsFile
-  tests      <- loadTests report
+  tests      <- readTests $ config^.testsFile
   let result = combine features tests
   return $ toDoc result
 
@@ -27,14 +26,17 @@ readFeaturesDoc path = do
   raw <- liftIO $ readFile $ path
   readMarkdown def (pack raw)
 
-readReport :: (MonadIO m) => String -> m Report
-readReport path = undefined
+readTests :: (MonadIO m) => String -> m Tests
+readTests path = do
+  raw <- liftIO $ readFile $ path
+  return $ parseReport (parse raw)
+  where
+    parseReport :: Maybe Tests -> Tests
+    parseReport (Nothing) = error "could not parse report"
+    parseReport (Just ts) = ts
 
 loadFeatures :: Pandoc -> m Features
 loadFeatures = undefined
-
-loadTests :: Report -> m Tests
-loadTests = undefined
 
 combine :: Features -> Tests -> Features
 combine fs (Tests []) = fs & features.traverse.userStories.traverse.criteria.traverse.status .~  Missing
