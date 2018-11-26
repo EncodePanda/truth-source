@@ -1,5 +1,0 @@
-
-module DetailsRaw where
-
-
-
