@@ -37,13 +37,24 @@ details (Features fs) = Pandoc nullMeta (fmap feature2Name fs)
 toDoc :: Features -> Pandoc
 toDoc features = summary features <> details features
 
+class Completed a where
+  klass :: a -> String
+  label :: a -> String
+
+instance Completed Feature where
+  klass f = "success"
+  label f = "completed"
+
 instance ToJSON Features where
-  toJSON a = object ["features" AT..=
-     map toJSON (_features a)
+  toJSON a = object [
+    "features" AT..= map toJSON (_features a)
     ]
 
 instance ToJSON Feature where
-  toJSON a = object ["featureName" AT..= _featureName a ]
+  toJSON a = object [
+    "featureName" AT..= _featureName a ,
+    "class" AT..= klass a,
+    "label" AT..= label a]
 
 instance ToJSON UserStory
 instance ToJSON Criteria
@@ -54,13 +65,8 @@ template :: Text
 template = [r|
 "Features:
 <table style="width:100%">
-  <tr>
-    <th>Feature name</th>
-  </tr>
   $for(features)$
-  <tr>
-    <td>$features.featureName$</td>
-  </tr>
+  <h3>$features.featureName$ <span class="badge badge-$features.class$">$features.label$</span></h3>
   $endfor$
 </table>
 |]
