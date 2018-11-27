@@ -31,6 +31,7 @@ dependencies:
 - lens
 - bytestring
 - neat-interpolation
+- doctemplates
 
 library:
   source-dirs: src
