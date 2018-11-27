@@ -32,7 +32,6 @@ isInProgress :: CompletedStatus -> Bool
 isInProgress (InProgress _) = True
 isInProgress _ = False
 
-
 class Completed a where
   isCompleted :: a -> CompletedStatus
   klazz :: a -> String
@@ -53,18 +52,21 @@ class Completed a where
       label' Successful = "success"
 
 instance Completed Feature where
-  isCompleted (Feature _ []) = NotDefined
-  isCompleted (Feature _ us) = NotDefined
+  isCompleted (Feature _ us) = isCompleted us
 
 instance Completed UserStory where
-  isCompleted (UserStory _ []) = NotDefined
-  isCompleted (UserStory _ cs) = check $ fmap isCompleted cs
+  isCompleted (UserStory _ us) = isCompleted us
+
+instance Completed a => Completed [a] where
+  isCompleted [] = NotDefined
+  isCompleted cs = check $ fmap isCompleted cs
     where
       check ics
         | filter (/= NotDefined) ics == [] = NotDefined
         | length (filter (== NotDefined) ics) > 0 = PartiallyDefined
-        | countInProgress ics + countSuccessful ics == length ics = InProgress (countSuccessful ics, length ics)
         | countFailing ics > 0 = Failing ""
+        | countSuccessful ics == length ics = Successful        
+        | countInProgress ics + countSuccessful ics == length ics = InProgress (countSuccessful ics, length ics)
         | otherwise = Failing "unknown case"
       countInProgress ics = length $ filter isInProgress ics
       countSuccessful ics = length $ filter (== Successful) ics
