@@ -35,7 +35,12 @@ class Completed a where
     | otherwise = (show . isCompleted) a
 
 instance Completed Feature where
+  isCompleted (Feature _ []) = (False, (0, 0))
   isCompleted (Feature _ us) = isCompleted us
+  klazz (Feature _ []) = "danger"
+  klazz (Feature _ us) = klazz us
+  label (Feature _ []) = "not defined"
+  label (Feature _ us) = label us
 
 instance Completed UserStory where
   isCompleted (UserStory _ []) = (False, (0, 0))
