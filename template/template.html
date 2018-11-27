@@ -25,7 +25,13 @@
 	        <h4>$features.userStories.description$<span class="badge badge-$features.userStories.class$">$features.userStories.label$</span></h4>
 
               $for(features.userStories.criteria)$
-	          <h6>$features.userStories.criteria.name$<span class="badge badge-$features.userStories.criteria.class$">$features.userStories.criteria.label$</span></h6>
+	          <h6 id="$features.userStories.criteria.id$">$features.userStories.criteria.name$<span class="badge badge-$features.userStories.criteria.class$">$features.userStories.criteria.label$</span></h6>
+
+                <ul>
+                $for(features.userStories.criteria.steps)$
+                  <li>$features.userStories.criteria.steps.value$</li>
+                $endfor$
+                </ul>
               $endfor$
 
             $endfor$
