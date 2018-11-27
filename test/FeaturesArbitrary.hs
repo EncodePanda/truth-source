@@ -3,15 +3,9 @@ module FeaturesArbitrary where
 import Test.QuickCheck
 import Feature
 
-nonEmptyLimitedListOf :: Gen a -> Gen [a]
-nonEmptyLimitedListOf gen = do
-  max <- elements [5..15]
-  list <- listOf1 gen
-  return $ take max list
-
 limitedListOf :: Gen a -> Gen [a]
 limitedListOf gen = do
-  max <- elements [5..15]
+  max <- elements [5..10]
   list <- listOf gen
   return $ take max list
 
