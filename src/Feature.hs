@@ -3,6 +3,7 @@
 {-# LANGUAGE TemplateHaskell #-}
 module Feature where
 
+import Tests
 import Control.Lens
 import Control.Lens.TH
 import GHC.Generics
@@ -33,7 +34,7 @@ data Criteria = Criteria { _criteriaName :: String
 newtype Step = Step String
   deriving (Show, Eq, Generic)
 
-data Status = Done | NotDone String | Missing
+data Status = Done | NotDone TestStatus | Missing
   deriving (Show, Eq, Generic)
 
 makeLenses ''Features

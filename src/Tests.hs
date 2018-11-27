@@ -47,10 +47,12 @@ data Test = Test {
   deriving (Show, Eq)
 
 data TestStatus = Passed | NotImplemented | Failed | Regression | Unknown
-  deriving (Show, Eq)
+  deriving (Show, Eq, Generic)
 
 makeLenses ''Tests
 makeLenses ''Test
+
+instance ToJSON TestStatus
 
 instance ToJSON TestReport
 instance FromJSON TestReport

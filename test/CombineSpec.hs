@@ -30,19 +30,19 @@ spec =
     it "should mark criteria as NotDone if test not implemented" $ do
       let fs = featuresWithTest "test-name"
       let ts = Tests [Test "test-name" NotImplemented]
-      (combine fs ts)^..allStatuses `shouldBe` [(NotDone "not implemented")]
+      (combine fs ts)^..allStatuses `shouldBe` [(NotDone NotImplemented)]
     it "should mark criteria as NotDone if test failed" $ do
       let fs = featuresWithTest "test-name"
       let ts = Tests [Test "test-name" Failed]
-      (combine fs ts)^..allStatuses `shouldBe` [(NotDone "failed")]
+      (combine fs ts)^..allStatuses `shouldBe` [(NotDone Failed)]
     it "should mark criteria as NotDone if test failed" $ do
       let fs = featuresWithTest "test-name"
       let ts = Tests [Test "test-name" Regression]
-      (combine fs ts)^..allStatuses `shouldBe` [(NotDone "regression")]
+      (combine fs ts)^..allStatuses `shouldBe` [(NotDone Regression)]
     it "should mark criteria as NotDone if unknown" $ do
       let fs = featuresWithTest "test-name"
       let ts = Tests [Test "test-name" Unknown]
-      (combine fs ts)^..allStatuses `shouldBe` [(NotDone "unknown")]
+      (combine fs ts)^..allStatuses `shouldBe` [(NotDone Unknown)]
     where
       allNames = features.traverse.featureName
       allUserStories = features.traverse.userStories.traverse.userStoryDesc
