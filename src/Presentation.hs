@@ -15,7 +15,6 @@ import Text.Pandoc.Options
 import Text.Pandoc.Class
 import Text.Pandoc.Readers.Markdown
 import Text.Pandoc.Definition
-import Text.RawString.QQ
 import Control.Monad.IO.Class
 import Control.Lens
 import Control.Lens.Each
@@ -93,16 +92,6 @@ instance ToJSON Criteria where
 
 instance ToJSON Step
 instance ToJSON Status
-
-template :: Text
-template = [r|
-"Features:
-<table style="width:100%">
-  $for(features)$
-  <h3>$features.featureName$ <span class="badge badge-$features.class$">$features.label$</span></h3>
-  $endfor$
-</table>
-|]
 
 templateIO :: IO Text
 templateIO = fmap pack $ readFile "template/template.html"
