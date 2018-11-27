@@ -24,6 +24,15 @@ import Data.Foldable
 data CompletedStatus = NotDefined | PartiallyDefined | InProgress (Int, Int) | Successful | Failing String
   deriving (Show, Eq)
 
+isFailing :: CompletedStatus -> Bool
+isFailing (Failing _) = True
+isFailing _ = False
+
+isInProgress :: CompletedStatus -> Bool
+isInProgress (InProgress _) = True
+isInProgress _ = False
+
+
 class Completed a where
   isCompleted :: a -> CompletedStatus
   klazz :: a -> String
@@ -53,15 +62,21 @@ instance Completed UserStory where
     where
       check ics
         | filter (/= NotDefined) ics == [] = NotDefined
-        | otherwise = PartiallyDefined
+        | length (filter (== NotDefined) ics) > 0 = PartiallyDefined
+        | countInProgress ics + countSuccessful ics == length ics = InProgress (countSuccessful ics, length ics)
+        | countFailing ics > 0 = Failing ""
+        | otherwise = Failing "unknown case"
+      countInProgress ics = length $ filter isInProgress ics
+      countSuccessful ics = length $ filter (== Successful) ics
+      countFailing ics = length $ filter isFailing ics
 
 instance Completed Criteria where
   isCompleted (Criteria _ _ Done _ ) = Successful
   isCompleted (Criteria _ _ Missing _ ) = NotDefined
   isCompleted (Criteria _ _ (NotDone NotImplemented) _ ) = InProgress (0, 1)
-  isCompleted (Criteria _ _ (NotDone Failed) _ ) = Failing $ show "failing"
-  isCompleted (Criteria _ _ (NotDone Regression) _ ) = Failing $ show "regression"
-  isCompleted (Criteria _ _ (NotDone Unknown) _ ) = Failing $ show "unknown"
+  isCompleted (Criteria _ _ (NotDone Failed) _ ) = Failing $ "failed"
+  isCompleted (Criteria _ _ (NotDone Regression) _ ) = Failing $ "regression"
+  isCompleted (Criteria _ _ (NotDone Unknown) _ ) = Failing $ "unknown"
 
 instance ToJSON Features where
   toJSON a = object [

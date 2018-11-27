@@ -28,6 +28,20 @@ spec =
       let us = UserStory "" [criterionDone, criterionNotImplemented, criterionMissing, criterionFailed, criterionRegression]
       isCompleted us `shouldBe` PartiallyDefined
 
+    it "should mark user story as 'in progress' with zero progress if all tests are not implemented" $ do
+      let us = UserStory "" [criterionNotImplemented, criterionNotImplemented, criterionNotImplemented]
+      isCompleted us `shouldBe` (InProgress (0, 3))
+
+    it "should mark user story as 'in progress' with some progress if all tests are either done or not implemented" $ do
+      let us = UserStory "" [criterionDone,  criterionNotImplemented, criterionDone, criterionNotImplemented, criterionDone]
+      isCompleted us `shouldBe` (InProgress (3, 5))
+
+    it "should mark user story as 'failing' with at least one failing test but all at least defined" $ do
+      let us = UserStory "" [criterionDone, criterionNotImplemented, criterionFailed, criterionRegression]
+      isCompleted us `shouldBe` (Failing "")
+
+
+
 
 criterionMissing :: Criteria
 criterionMissing = Criteria "_" "_" Missing []
