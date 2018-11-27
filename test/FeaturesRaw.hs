@@ -9,13 +9,9 @@ sample = [r|
 * Ceremony master - TBD
 
 # Mainnet Feature Requirements
-
 ## Network Launch
-
 ### UC: As a Coop SRE I want to launch a network
-
 #### AC: A succesful genesis ceremony 
-
 ##### test: [todo: requires integration test]
 ##### steps:
 
@@ -30,7 +26,6 @@ sample = [r|
 * `ceremonyMaster`, `validatorA` and `validatorB` tip points to block (genesis) where it has no parent and Bonds holds `validatorA` and `validatorB`
 
 #### AC: A succesful genesis ceremony with read-only nodes joining 
-
 ##### test: [todo: requires integration test]
 ##### steps:
 
@@ -46,9 +41,7 @@ sample = [r|
 * `ceremonyMaster`, `validatorA` and `validatorB` tip points to block (genesis) where it has no parent and Bonds holds `validatorA` and `validatorB`
 * `readOnlyA` **never** transitions to `ApprovedBlockReceivedHandler`
 
-
 #### AC: A NOT succesful genesis ceremony (not enough sigs)
-
 ##### test: [todo: requires integration test]
 ##### steps:
 
@@ -61,7 +54,6 @@ sample = [r|
 
 
 #### AC: A validator catching up after ceremony
-
 ##### test: [todo: requires integration test]
 ##### steps:
 
@@ -73,13 +65,9 @@ sample = [r|
 * `validatorC` tip points to block (genesis) where it has no parent and Bonds holds `validatorA` and `validatorB`
 
 ## Proof of stake consensus
-
 ### UC: As a dApp developer I want to be able to deploy my rholang contract to a validator
-
 #### AC: A correct contract gets deployed successfully
-
 ##### test: [todo: requires integration test]
-
 ##### steps:
 
 * instantiate p2p network with single `ceremonyMaster` that transitions to `ApprovedBlockReceivedhandler` (`--required-sig 0`)
@@ -88,9 +76,7 @@ sample = [r|
 * `rnode deploy` exit code should be 0
 
 #### AC: An incorrect  contract does not get deployed 
-
 ##### test: [todo: requires integration test]
-
 ##### steps:
 
 * instantiate p2p network with single `ceremonyMaster` that transitions to `ApprovedBlockReceivedhandler` (`--required-sig 0`)
@@ -98,6 +84,7 @@ sample = [r|
 * assert a error logs on std out
 * `rnode deploy` exit code should be 1
 
+### UC: No AC!
 
 # Other stuff
 
