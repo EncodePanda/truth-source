@@ -20,9 +20,15 @@
 	    <div class="col-10 shadow p-3 mb-5 bg-white rounded">
 	      <h3>$features.featureName$<span class="badge badge-$features.class$">$features.label$</span></h3>
 	      <div class="border p-3 mb-5">
-	        <h4>As a User I want to define a user story <span class="badge badge-success">ok</span></h4>
 
-	        <h6>Somethiing something <span class="badge badge-success">ok</span></h6>
+            $for(features.userStories)$
+	        <h4>$features.userStories.description$<span class="badge badge-$features.userStories.class$">$features.userStories.label$</span></h4>
+
+              $for(features.userStories.criteria)$
+	          <h6>$features.userStories.criteria.name$<span class="badge badge-$features.userStories.criteria.class$">$features.userStories.criteria.label$</span></h6>
+              $endfor$
+
+            $endfor$
 	      </div>
 
 	    </div>
