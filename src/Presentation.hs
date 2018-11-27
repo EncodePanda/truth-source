@@ -71,8 +71,12 @@ template = [r|
 </table>
 |]
 
+templateIO :: IO Text
+templateIO = fmap pack $ readFile "template/template.html"
 
 template' :: Features -> IO ()
-template' f = case compileTemplate template of
+template' f = do
+  template <- templateIO
+  case compileTemplate template of
          Left e    -> error e
          Right t   -> putStrLn $ renderTemplate t $ f
