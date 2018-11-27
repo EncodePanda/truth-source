@@ -21,44 +21,40 @@ import Control.Lens
 import Control.Lens.Each
 import Data.Foldable
 
-type CompletedStatus = (Bool, (Int, Int))
+data CompletedStatus = NotDefined | PartiallyDefined | Failing String | InProgress (Int, Int) | Successful
+  deriving Eq
 
 class Completed a where
   isCompleted :: a -> CompletedStatus
   klazz :: a -> String
-  klazz a
-    | fst $ isCompleted a = "success"
-    | otherwise = "danger"
+  klazz a = klazz' $ isCompleted a
+    where
+      klazz' NotDefined = "danger"
+      klazz' PartiallyDefined = "danger"
+      klazz' (Failing _) = "danger"
+      klazz' (InProgress _) = "warning"
+      klazz' Successful = "success"
   label :: a -> String
-  label a
-    | fst $ isCompleted a = "completed"
-    | otherwise = (show . isCompleted) a
+  label a = label' $ isCompleted a
+    where
+      label' NotDefined = "not defined"
+      label' PartiallyDefined = "partially defined"
+      label' (Failing reason) = "failing: " ++ reason
+      label' (InProgress (d, a)) = show d ++ " / " ++ show a
+      label' Successful = "success"
 
 instance Completed Feature where
-  isCompleted (Feature _ []) = (False, (0, 0))
-  isCompleted (Feature _ us) = isCompleted us
-  klazz (Feature _ []) = "danger"
-  klazz (Feature _ us) = klazz us
-  label (Feature _ []) = "not defined"
-  label (Feature _ us) = label us
+  isCompleted (Feature _ []) = NotDefined
+  isCompleted (Feature _ us) = NotDefined
 
 instance Completed UserStory where
-  isCompleted (UserStory _ []) = (False, (0, 0))
-  isCompleted (UserStory _ cs) = isCompleted cs
-  klazz (UserStory _ []) = "danger"
-  klazz (UserStory _ cs) = klazz cs
-  label (UserStory _ []) = "not defined"
-  label (UserStory _ cs) = label cs
-
-instance Completed a => Completed [a] where
-  isCompleted as = (done as == all as, (done as, all as))
-    where
-      done as = length $ filter (fst . isCompleted) as
-      all as = length as
+  isCompleted (UserStory _ []) = NotDefined
+  isCompleted (UserStory _ cs) = NotDefined
 
 instance Completed Criteria where
-  isCompleted (Criteria _ _ Done _ ) = (True, (1, 1))
-  isCompleted _ = (False, (0, 1))
+  isCompleted (Criteria _ _ Done _ ) = Successful
+  isCompleted (Criteria _ _ Missing _ ) = NotDefined
+  isCompleted (Criteria _ _ (NotDone reason) _ ) = Failing reason
 
 instance ToJSON Features where
   toJSON a = object [
