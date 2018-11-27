@@ -21,8 +21,8 @@ import Control.Lens
 import Control.Lens.Each
 import Data.Foldable
 
-data CompletedStatus = NotDefined | PartiallyDefined | Failing String | InProgress (Int, Int) | Successful
-  deriving Eq
+data CompletedStatus = NotDefined | PartiallyDefined | InProgress (Int, Int) | Successful | Failing String
+  deriving (Show, Eq)
 
 class Completed a where
   isCompleted :: a -> CompletedStatus
@@ -49,12 +49,19 @@ instance Completed Feature where
 
 instance Completed UserStory where
   isCompleted (UserStory _ []) = NotDefined
-  isCompleted (UserStory _ cs) = NotDefined
+  isCompleted (UserStory _ cs) = check $ fmap isCompleted cs
+    where
+      check ics
+        | filter (/= NotDefined) ics == [] = NotDefined
+        | otherwise = PartiallyDefined
 
 instance Completed Criteria where
   isCompleted (Criteria _ _ Done _ ) = Successful
   isCompleted (Criteria _ _ Missing _ ) = NotDefined
-  isCompleted (Criteria _ _ (NotDone reason) _ ) = Failing $ show reason
+  isCompleted (Criteria _ _ (NotDone NotImplemented) _ ) = InProgress (0, 1)
+  isCompleted (Criteria _ _ (NotDone Failed) _ ) = Failing $ show "failing"
+  isCompleted (Criteria _ _ (NotDone Regression) _ ) = Failing $ show "regression"
+  isCompleted (Criteria _ _ (NotDone Unknown) _ ) = Failing $ show "unknown"
 
 instance ToJSON Features where
   toJSON a = object [
