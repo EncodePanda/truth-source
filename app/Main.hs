@@ -18,8 +18,7 @@ main :: IO ()
 main = do
   putStrLn "Reading configuration..."
   config <- execParser opts
-  html <- runIO $ program config
-  serialize config html
+  runIO $ program config
   putStrLn "Done."
   where
     opts = info (C.parser <**> helper)
@@ -27,17 +26,19 @@ main = do
      <> progDesc "program desc"
      <> header "header" )
 
-program :: C.Config -> PandocIO Text
+program :: C.Config -> PandocIO ()
 program config = do
   liftIO $ putStrLn "Generate document..."
   features <- T.generate config
-  pandoc <- P.present features
+  htmlRaw <- liftIO $ P.present features
   liftIO $ putStrLn "Write document to HTML..."
-  writeHtml4String def pandoc
+  liftIO $ serialize config htmlRaw
 
-serialize :: Config -> Either PandocError Text -> IO ()
-serialize _ (Left(error)) = putStrLn $ show error
-serialize config (Right(html)) = do
+serialize :: Config -> String -> IO ()
+serialize config html = do
   let output = config^.outputFile
   putStrLn $ "Store HTML to " ++ output ++ "..."
-  TIO.writeFile output html
+  TIO.writeFile output (pack html)
+
+  
+

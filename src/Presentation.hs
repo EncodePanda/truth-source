@@ -21,22 +21,6 @@ import Control.Lens
 import Control.Lens.Each
 import Data.Foldable
 
-present :: (MonadIO m) => Features -> m Pandoc
-present features = pure $ toDoc features
-
-summary :: Features -> Pandoc
-summary (Features []) = Pandoc nullMeta [P.Null]
-summary features = Pandoc nullMeta [Table [Str "Features"] [AlignLeft] [0] [] []]
-
-details :: Features -> Pandoc
-details (Features fs) = Pandoc nullMeta (fmap feature2Name fs)
-  where
-    feature2Name :: Feature -> Block
-    feature2Name f = Header 2 nullAttr [Str (f^.featureName)]
-
-toDoc :: Features -> Pandoc
-toDoc features = summary features <> details features
-
 type CompletedStatus = (Bool, (Int, Int))
 
 class Completed a where
@@ -105,9 +89,9 @@ instance ToJSON Status
 templateIO :: IO Text
 templateIO = fmap pack $ readFile "template/template.html"
 
-template' :: Features -> IO ()
-template' f = do
+present :: Features -> IO String
+present f = do
   template <- templateIO
   case compileTemplate template of
          Left e    -> error e
-         Right t   -> putStrLn $ renderTemplate t $ f
+         Right t   -> return $ renderTemplate t $ f
