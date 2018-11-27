@@ -50,10 +50,7 @@ combine fs ts = over allCriteria (fmap (modify (ts^.tests))) fs
        (Just t) -> status .~ (testToStatus (t^.testStatus)) $ c
 
      testToStatus Passed = Done
-     testToStatus NotImplemented = NotDone "not implemented"
-     testToStatus Failed = NotDone "failed"
-     testToStatus Regression = NotDone "regression"
-     testToStatus Unknown = NotDone "unknown"
+     testToStatus ts = NotDone ts
 
      findTest :: [Test] -> Criteria -> Maybe Test
      findTest ts c = find (\t -> t^.testDesc == c^.testName) ts

@@ -39,7 +39,7 @@ class Completed a where
     where
       label' NotDefined = "not defined"
       label' PartiallyDefined = "partially defined"
-      label' (Failing reason) = "failing: " ++ reason
+      label' (Failing reason) = "failing: " ++ show reason
       label' (InProgress (d, a)) = show d ++ " / " ++ show a
       label' Successful = "success"
 
@@ -54,7 +54,7 @@ instance Completed UserStory where
 instance Completed Criteria where
   isCompleted (Criteria _ _ Done _ ) = Successful
   isCompleted (Criteria _ _ Missing _ ) = NotDefined
-  isCompleted (Criteria _ _ (NotDone reason) _ ) = Failing reason
+  isCompleted (Criteria _ _ (NotDone reason) _ ) = Failing $ show reason
 
 instance ToJSON Features where
   toJSON a = object [
