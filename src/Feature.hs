@@ -13,11 +13,12 @@ import Text.Pandoc.Definition
 import Data.List
 
 data Features = Features { _features :: [Feature]}
-  deriving (Show, Eq)
+  deriving (Show, Eq, Generic)
 
 data Feature = Feature { _featureName :: String
                        , _userStories :: [UserStory]
                        } deriving (Show, Eq, Generic)
+
 data UserStory = UserStory { _userStoryDesc :: String
                            , _criteria :: [Criteria]
                            } deriving (Show, Eq, Generic)
@@ -71,4 +72,4 @@ extractFeaturesFromPandoc (Pandoc meta heads) = extractFeatures heads
     toStringInline Space = " "
     toStringInline a = show a
     printInline :: [Inline] -> String
-    printInline l = intercalate "" (map toStringInline l) 
+    printInline l = intercalate "" (map toStringInline l)
