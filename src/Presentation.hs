@@ -54,7 +54,12 @@ instance Completed Feature where
   isCompleted (Feature _ us) = isCompleted us
 
 instance Completed UserStory where
+  isCompleted (UserStory _ []) = (False, (0, 0))
   isCompleted (UserStory _ cs) = isCompleted cs
+  klazz (UserStory _ []) = "danger"
+  klazz (UserStory _ cs) = klazz cs
+  label (UserStory _ []) = "not defined"
+  label (UserStory _ cs) = label cs
 
 instance Completed a => Completed [a] where
   isCompleted as = (done as == all as, (done as, all as))
