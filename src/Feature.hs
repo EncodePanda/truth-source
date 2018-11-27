@@ -70,6 +70,7 @@ makeFeature (Header 2 _ l) = Feature (printInline l) []
 makeUserStory :: Block -> UserStory
 makeUserStory (Header 3 _ l) = UserStory (printInline l) []
 
+--test: test/testEmph [Str \"genesis\"]ceremony.py::testEmph [Str \"successful\"]genesis_ceremony
 makeCriteria :: Block -> Criteria
 makeCriteria (Header 4 _ l) = Criteria (printInline l) "not available" Missing []
 
@@ -105,6 +106,8 @@ toStringInline :: Inline -> String
 toStringInline (Str s) = s
 toStringInline (Code _ s) = s
 toStringInline (Link _ ins t) = printInline ins
+toStringInline (Emph ins) = "_" ++ (printInline ins) ++ "_"
+toStringInline (Strong ins) = "**" ++ (printInline ins) ++ "**"
 toStringInline Space = " "
 toStringInline a = show a
 
