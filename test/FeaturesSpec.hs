@@ -34,7 +34,7 @@ spec = do
       Features {_features = [
         Feature {_featureName = "Network Launch", _userStories = [
           UserStory {_userStoryDesc = "UC: As a Coop SRE I want to launch a network", _criteria = [
-            Criteria {_criteriaName = "AC: A succesful genesis ceremony", _testName = "test: [todo: requires integration test]", _status = Missing, _steps = [
+            Criteria {_criteriaName = "AC: A succesful genesis ceremony", _testName = "[todo: requires integration test]", _status = Missing, _steps = [
               Step "ceremonyMaster is instatantied with flags --required-sigs 2 --duration 5min --interval 10sec --bonds-file <holds two nodes validatorA and validatorB.",
               Step "validatorA and validatorB joins p2p, both poining ceremonyMaster as bootstrap",
               Step "ceremonyMaster sends UnapprovedBlock to validatorA and validatorB",
@@ -44,7 +44,7 @@ spec = do
               Step "ceremonyMaster sends ApprovedBlock to validatorA and validatorB",
               Step "validatorA and validatorB transition to ApprovedBlockReceivedHandler",
               Step "ceremonyMaster, validatorA and validatorB tip points to block (genesis) where it has no parent and Bonds holds validatorA and validatorB"]},
-            Criteria {_criteriaName = "AC: A succesful genesis ceremony with read-only nodes joining", _testName = "test: [todo: requires integration test]", _status = Missing, _steps = [
+            Criteria {_criteriaName = "AC: A succesful genesis ceremony with read-only nodes joining", _testName = "[todo: requires integration test]", _status = Missing, _steps = [
               Step "ceremonyMaster is instatantied with flags --required-sigs 2 --duration 5min --interval 10sec --bonds-file <holds two nodes validatorA and validatorB.",
               Step "validatorA and validatorB joins p2p, both poining ceremonyMaster as bootstrap",
               Step "readOnlyA(read-only) joins p2p",
@@ -56,14 +56,14 @@ spec = do
               Step "validatorA and validatorB transition to ApprovedBlockReceivedHandler",
               Step "ceremonyMaster, validatorA and validatorB tip points to block (genesis) where it has no parent and Bonds holds validatorA and validatorB",
               Step "readOnlyA **never** transitions to ApprovedBlockReceivedHandler"]},
-            Criteria {_criteriaName = "AC: A NOT succesful genesis ceremony (not enough sigs)", _testName = "test: [todo: requires integration test]", _status = Missing, _steps = [
+            Criteria {_criteriaName = "AC: A NOT succesful genesis ceremony (not enough sigs)", _testName = "[todo: requires integration test]", _status = Missing, _steps = [
               Step "ceremonyMaster is instatantied with flags --required-sigs 3 --duration 5min --interval 10sec --bonds-file <holds two nodes validatorA and validatorB.",
               Step "validatorA and validatorB joins p2p, both poining ceremonyMaster as bootstrap",
               Step "ceremonyMaster sends UnapprovedBlock to validatorA and validatorB",
               Step "validatorA and validatorB receives UnapprovedBlock",
               Step "validatorA and validatorB send back BlockApproval",
               Step "ceremonyMaster logs an error about not getting enough signatures on time (duration)"]},
-            Criteria {_criteriaName = "AC: A validator catching up after ceremony", _testName = "test: [todo: requires integration test]", _status = Missing, _steps = [
+            Criteria {_criteriaName = "AC: A validator catching up after ceremony", _testName = "[todo: requires integration test]", _status = Missing, _steps = [
               Step "genesis reach as described in A succesful genesis ceremony",
               Step "validatorC joins p2p, pointing on ceremonyMaster as bootstrap",
               Step "validatorC sends ApprobedBlockRequest to ceremonyMaster",
@@ -72,12 +72,12 @@ spec = do
               Step "validatorC tip points to block (genesis) where it has no parent and Bonds holds validatorA and validatorB"]}]}]},
         Feature {_featureName = "Proof of stake consensus", _userStories = [
           UserStory {_userStoryDesc = "UC: As a dApp developer I want to be able to deploy my rholang contract to a validator", _criteria = [
-            Criteria {_criteriaName = "AC: A correct contract gets deployed successfully", _testName = "test: [todo: requires integration test]", _status = Missing, _steps = [
+            Criteria {_criteriaName = "AC: A correct contract gets deployed successfully", _testName = "[todo: requires integration test]", _status = Missing, _steps = [
               Step "instantiate p2p network with single ceremonyMaster that transitions to ApprovedBlockReceivedhandler (--required-sig 0)",
               Step "call rnode deploy with rholang/examples/tut-philosophers.rho on ceremonyMaster",
               Step "assert a success on std out",
               Step "rnode deploy exit code should be 0"]},
-            Criteria {_criteriaName = "AC: An incorrect contract does not get deployed", _testName = "test: [todo: requires integration test]", _status = Missing, _steps = [
+            Criteria {_criteriaName = "AC: An incorrect contract does not get deployed", _testName = "[todo: requires integration test]", _status = Missing, _steps = [
               Step "instantiate p2p network with single ceremonyMaster that transitions to ApprovedBlockReceivedhandler (--required-sig 0)",
               Step "call rnode deploy with invalid contract on ceremonyMaster",
               Step "assert a error logs on std out",
@@ -91,7 +91,7 @@ spec = do
           UserStory {_userStoryDesc = "As a Node operator, I want to know how many peers I am connected to", _criteria = []}]},
         Feature {_featureName = "Network Launch", _userStories = [
           UserStory {_userStoryDesc = "As a Coop SRE I want to launch a network", _criteria = [
-            Criteria {_criteriaName = "A succesful genesis ceremony", _testName = "test: test/test_genesis_ceremony.py::test_successful_genesis_ceremony", _status = Missing, _steps = [
+            Criteria {_criteriaName = "A succesful genesis ceremony", _testName = "test/test_genesis_ceremony.py::test_successful_genesis_ceremony", _status = Missing, _steps = [
               Step "ceremonyMaster is instatantied with flags --required-sigs 2 --duration 5min --interval 10sec --bonds-file <holds two nodes validatorA and validatorB.",
               Step "validatorA and validatorB joins p2p, both pointing to ceremonyMaster as bootstrap",
               Step "ceremonyMaster sends UnapprovedBlock to validatorA and validatorB",
@@ -101,7 +101,7 @@ spec = do
               Step "ceremonyMaster sends ApprovedBlock to validatorA and validatorB",
               Step "validatorA and validatorB transition to ApprovedBlockReceivedHandler",
               Step "ceremonyMaster, validatorA and validatorB tip points to block (genesis) where it has no parent and Bonds holds validatorA and validatorB"]},
-            Criteria {_criteriaName = "A succesful genesis ceremony with read-only nodes joining", _testName = "test: not available", _status = Missing, _steps = [
+            Criteria {_criteriaName = "A succesful genesis ceremony with read-only nodes joining", _testName = "not available", _status = Missing, _steps = [
               Step "ceremonyMaster is instatantied with flags --required-sigs 2 --duration 5min --interval 10sec --bonds-file <holds two nodes validatorA and validatorB.",
               Step "validatorA and validatorB joins p2p, both pointing to ceremonyMaster as bootstrap",
               Step "readOnlyA(read-only) joins p2p",
@@ -113,14 +113,14 @@ spec = do
               Step "validatorA and validatorB transition to ApprovedBlockReceivedHandler",
               Step "ceremonyMaster, validatorA and validatorB tip points to block (genesis) where it has no parent and Bonds holds validatorA and validatorB",
               Step "readOnlyA **never** transitions to ApprovedBlockReceivedHandler"]},
-            Criteria {_criteriaName = "A NOT succesful genesis ceremony (not enough sigs)", _testName = "test: not available", _status = Missing, _steps = [
+            Criteria {_criteriaName = "A NOT succesful genesis ceremony (not enough sigs)", _testName = "not available", _status = Missing, _steps = [
               Step "ceremonyMaster is instatantied with flags --required-sigs 3 --duration 5min --interval 10sec --bonds-file <holds two nodes validatorA and validatorB.",
               Step "validatorA and validatorB joins p2p, both pointing to ceremonyMaster as bootstrap",
               Step "ceremonyMaster sends UnapprovedBlock to validatorA and validatorB",
               Step "validatorA and validatorB receives UnapprovedBlock",
               Step "validatorA and validatorB send back BlockApproval",
               Step "ceremonyMaster logs an error about not getting enough signatures on time (duration)"]},
-            Criteria {_criteriaName = "A validator catching up after ceremony", _testName = "test: not available", _status = Missing, _steps = [
+            Criteria {_criteriaName = "A validator catching up after ceremony", _testName = "not available", _status = Missing, _steps = [
               Step "genesis reached as described in \"A succesful genesis ceremony\"",
               Step "validatorC joins p2p, pointing on ceremonyMaster as bootstrap",
               Step "validatorC sends ApprovedBlockRequest to ceremonyMaster",
@@ -132,12 +132,12 @@ spec = do
           UserStory {_userStoryDesc = "As a Node Validator, I want to be able to retrieve my stake from the network and no longer be recognized a as validator", _criteria = []}]},
         Feature {_featureName = "Proof of stake consensus", _userStories = [
           UserStory {_userStoryDesc = "As a dApp developer I want to be able to deploy my rholang contract to a validator", _criteria = [
-            Criteria {_criteriaName = "A correct contract gets deployed successfully", _testName = "test: not available", _status = Missing, _steps = [
+            Criteria {_criteriaName = "A correct contract gets deployed successfully", _testName = "not available", _status = Missing, _steps = [
               Step "instantiate p2p network with single ceremonyMaster that transitions to ApprovedBlockReceivedhandler (--required-sig 0)",
               Step "call rnode deploy with rholang/examples/tut-philosophers.rho on ceremonyMaster",
               Step "assert a success on std out",
               Step "rnode deploy exit code should be 0"]},
-            Criteria {_criteriaName = "An incorrect contract does not get deployed", _testName = "test: not available", _status = Missing, _steps = [
+            Criteria {_criteriaName = "An incorrect contract does not get deployed", _testName = "not available", _status = Missing, _steps = [
               Step "instantiate p2p network with single ceremonyMaster that transitions to ApprovedBlockReceivedhandler (--required-sig 0)",
               Step "call rnode deploy with invalid contract on ceremonyMaster",
               Step "assert a error logs on std out",
