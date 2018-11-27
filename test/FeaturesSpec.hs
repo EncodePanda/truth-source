@@ -20,11 +20,15 @@ spec :: Spec
 spec = do
   describe "Pandoc transformer" $ do
     it "should return a sample features list" $ do
-      sample <- sampleFeatures
+      sample <- sampleFeatures Fr.sample
       (extractFeaturesFromPandoc sample) `shouldBe` expected
+    it "should return a sample features list 2" $ do
+      pending
+      sample <- sampleFeatures Fr.sample2
+      (extractFeaturesFromPandoc sample) `shouldBe` Features []
   where
-    sampleFeatures :: IO Pandoc
-    sampleFeatures = fmap mapRes (PC.runIO $ readMarkdown def (pack Fr.sample))
+    sampleFeatures :: String -> IO Pandoc
+    sampleFeatures raw = fmap mapRes (PC.runIO $ readMarkdown def (pack raw))
     mapRes (Left _) = error "Could not read sample data"
     mapRes (Right d) = d
     expected = 
