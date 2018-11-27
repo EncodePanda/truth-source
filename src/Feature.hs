@@ -70,7 +70,6 @@ makeFeature (Header 2 _ l) = Feature (printInline l) []
 makeUserStory :: Block -> UserStory
 makeUserStory (Header 3 _ l) = UserStory (printInline l) []
 
---test: test/testEmph [Str \"genesis\"]ceremony.py::testEmph [Str \"successful\"]genesis_ceremony
 makeCriteria :: Block -> Criteria
 makeCriteria (Header 4 _ l) = Criteria (printInline l) "not available" Missing []
 
