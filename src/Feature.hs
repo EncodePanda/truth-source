@@ -105,6 +105,8 @@ toStringInline :: Inline -> String
 toStringInline (Str s) = s
 toStringInline (Code _ s) = s
 toStringInline (Link _ ins t) = printInline ins
+toStringInline (Emph ins) = "_" ++ (printInline ins) ++ "_"
+toStringInline (Strong ins) = "**" ++ (printInline ins) ++ "**"
 toStringInline Space = " "
 toStringInline a = show a
 
