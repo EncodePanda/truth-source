@@ -4,6 +4,7 @@ module Presentation where
 
 import GHC.Generics
 import Config
+import Crypt
 import Feature
 import Tests
 import Data.Aeson
@@ -72,6 +73,7 @@ instance ToJSON Features where
 
 instance ToJSON Feature where
   toJSON a = object [
+    "id" AT..= encodeToString (show a),
     "featureName" AT..= _featureName a ,
     "userStories" AT..= map toJSON (_userStories a),
     "class" AT..= klazz a,
@@ -79,6 +81,7 @@ instance ToJSON Feature where
 
 instance ToJSON UserStory where
   toJSON a = object [
+    "id" AT..= encodeToString (show a),
     "description" AT..= _userStoryDesc a,
     "criteria" AT..= map toJSON (_criteria a),
     "class" AT..= klazz a,
@@ -86,11 +89,17 @@ instance ToJSON UserStory where
 
 instance ToJSON Criteria where
   toJSON a = object [
+    "id" AT..= encodeToString (show a),
     "name" AT..= _criteriaName a,
+    "steps" AT..= _steps a,
     "class" AT..= klazz a,
     "label" AT..= label a]
 
-instance ToJSON Step
+instance ToJSON Step where
+  toJSON a = object [
+    "id" AT..= encodeToString (show a),
+    "value" AT..= show a]
+
 instance ToJSON Status
 
 templateIO :: IO Text

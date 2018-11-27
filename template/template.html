@@ -18,14 +18,20 @@
       <div class="row">
 	    <div class="col"> </div>
 	    <div class="col-10 shadow p-3 mb-5 bg-white rounded">
-	      <h3>$features.featureName$<span class="badge badge-$features.class$">$features.label$</span></h3>
+	      <h3 id="$features.id$">$features.featureName$<span class="badge badge-$features.class$">$features.label$</span></h3>
 	      <div class="border p-3 mb-5">
 
             $for(features.userStories)$
-	        <h4>$features.userStories.description$<span class="badge badge-$features.userStories.class$">$features.userStories.label$</span></h4>
+	        <h4 id="$features.userStories.id$">$features.userStories.description$<span class="badge badge-$features.userStories.class$">$features.userStories.label$</span></h4>
 
               $for(features.userStories.criteria)$
-	          <h6>$features.userStories.criteria.name$<span class="badge badge-$features.userStories.criteria.class$">$features.userStories.criteria.label$</span></h6>
+	          <h6 id="$features.userStories.criteria.id$">$features.userStories.criteria.name$<span class="badge badge-$features.userStories.criteria.class$">$features.userStories.criteria.label$</span></h6>
+
+                <ul>
+                $for(features.userStories.criteria.steps)$
+                  <li id="$features.userStories.criteria.steps.id$">$features.userStories.criteria.steps.value$</li>
+                $endfor$
+                </ul>
               $endfor$
 
             $endfor$

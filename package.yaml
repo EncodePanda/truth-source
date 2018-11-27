@@ -32,6 +32,7 @@ dependencies:
 - bytestring
 - neat-interpolation
 - doctemplates
+- cryptonite
 
 library:
   source-dirs: src
