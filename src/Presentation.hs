@@ -74,11 +74,23 @@ instance ToJSON Features where
 instance ToJSON Feature where
   toJSON a = object [
     "featureName" AT..= _featureName a ,
+    "userStories" AT..= map toJSON (_userStories a),
     "class" AT..= klazz a,
     "label" AT..= label a]
 
-instance ToJSON UserStory
-instance ToJSON Criteria
+instance ToJSON UserStory where
+  toJSON a = object [
+    "description" AT..= _userStoryDesc a,
+    "criteria" AT..= map toJSON (_criteria a),
+    "class" AT..= klazz a,
+    "label" AT..= label a]
+
+instance ToJSON Criteria where
+  toJSON a = object [
+    "name" AT..= _criteriaName a,
+    "class" AT..= klazz a,
+    "label" AT..= label a]
+
 instance ToJSON Step
 instance ToJSON Status
 
