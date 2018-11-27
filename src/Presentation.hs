@@ -37,13 +37,34 @@ details (Features fs) = Pandoc nullMeta (fmap feature2Name fs)
 toDoc :: Features -> Pandoc
 toDoc features = summary features <> details features
 
+type CompletedStatus = (Bool, (Int, Int))
+
 class Completed a where
-  klass :: a -> String
+  isCompleted :: a -> CompletedStatus
+  klazz :: a -> String
+  klazz a
+    | fst $ isCompleted a = "success"
+    | otherwise = "danger"
   label :: a -> String
+  label a
+    | fst $ isCompleted a = "completed"
+    | otherwise = (show . isCompleted) a
 
 instance Completed Feature where
-  klass f = "success"
-  label f = "completed"
+  isCompleted (Feature _ us) = isCompleted us
+
+instance Completed UserStory where
+  isCompleted (UserStory _ cs) = isCompleted cs
+
+instance Completed a => Completed [a] where
+  isCompleted as = (done as == all as, (done as, all as))
+    where
+      done as = length $ filter (fst . isCompleted) as
+      all as = length as
+
+instance Completed Criteria where
+  isCompleted (Criteria _ _ Done _ ) = (True, (1, 1))
+  isCompleted _ = (False, (0, 1))
 
 instance ToJSON Features where
   toJSON a = object [
@@ -53,7 +74,7 @@ instance ToJSON Features where
 instance ToJSON Feature where
   toJSON a = object [
     "featureName" AT..= _featureName a ,
-    "class" AT..= klass a,
+    "class" AT..= klazz a,
     "label" AT..= label a]
 
 instance ToJSON UserStory
