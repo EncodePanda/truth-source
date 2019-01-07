@@ -15,4 +15,4 @@ encode :: HashAlgorithm a => String -> Digest a
 encode x = hash $ pack x
 
 encodeToString :: String -> String
-encodeToString x = show $ (encode x :: Digest Blake2b_512)
+encodeToString x = "id" ++ (show $ (encode x :: Digest Blake2b_512))

@@ -18,23 +18,55 @@
       <div class="row">
 	    <div class="col"> </div>
 	    <div class="col-10 shadow p-3 mb-5 bg-white rounded">
-	      <h3 id="$features.id$">$features.featureName$<span class="badge badge-$features.class$">$features.label$</span></h3>
-	      <div class="border p-3 mb-5">
+	      <div class="d-flex w-100 justify-content-between">
+		<h4 id="$features.id$">$features.featureName$</h4>
+		<small class="text-$features.class$">$features.label$</small>
+	      </div>
+	      <div class="border border-$features.class$ p-3 mb-5">
+		<div class="list-group">
+		  $for(features.userStories)$
+		  <div class="list-group-item list-group-item-$features.userStories.class$ flex-column align-items-start">
+		    <div  class="d-flex w-100 justify-content-between">
+		      <h5 data-toggle="collapse" href="#$features.userStories.id$" class="mb-1">$features.userStories.description$</h5>
+		      <small class="text-$features.userStories.class$">$features.userStories.label$</small>
+		    </div>
+		    <div class="collapse" id="$features.userStories.id$">
+		      $for(features.userStories.criteria)$
 
-            $for(features.userStories)$
-	        <h4 id="$features.userStories.id$">$features.userStories.description$<span class="badge badge-$features.userStories.class$">$features.userStories.label$</span></h4>
+		      <div class="list-group-item list-group-item-action list-group-item-$features.userStories.criteria.class$ flex-column align-items-start">
+			<div data-toggle="collapse" href="#$features.userStories.criteria.id$" class="d-flex w-100 justify-content-between">
+			  <h6 class="mb-1">$features.userStories.criteria.name$</h6>
+			  <small class="text-$features.userStories.criteria.class$">$features.userStories.criteria.label$</small>
+			</div>
+			<div class="collapse" id="$features.userStories.criteria.id$">
+			  $for(features.userStories.criteria.steps)$
+			  <p class="mb-1">$features.userStories.criteria.steps.value$</p>
+			  $endfor$
+			</div>
+		      </div>
+		      
+		      $endfor$		    
 
-              $for(features.userStories.criteria)$
-	          <h6 id="$features.userStories.criteria.id$">$features.userStories.criteria.name$<span class="badge badge-$features.userStories.criteria.class$">$features.userStories.criteria.label$</span></h6>
+		    </div>
+		  </div>
+		  $endfor$
+		</div>
+<!--
+
+	        <h4 id=""><span class="badge badge-"></span></h4>
+
+
+	          <h6 id=""><span class="badge badge-$features.userStories.criteria.class$">$features.userStories.criteria.label$</span></h6>
 
                 <ul>
-                $for(features.userStories.criteria.steps)$
-                  <li id="$features.userStories.criteria.steps.id$">$features.userStories.criteria.steps.value$</li>
-                $endfor$
-                </ul>
-              $endfor$
 
-            $endfor$
+                  <li id="$features.userStories.criteria.steps.id$"></li>
+
+                </ul>
+
+
+
+-->
 	      </div>
 
 	    </div>
