@@ -74,6 +74,7 @@ instance Completed a => Completed [a] where
 
 instance Completed Criteria where
   isCompleted (Criteria _ _ Done _ _ ) = Successful
+  isCompleted (Criteria _ _ External _ _ ) = Successful
   isCompleted (Criteria _ _ Missing _ _ ) = NotDefined
   isCompleted (Criteria _ _ (NotDone NotImplemented) _ _ ) = InProgress (0, 1)
   isCompleted (Criteria _ _ (NotDone Failed) _ _ ) = Failing $ "failed"
