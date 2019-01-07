@@ -52,4 +52,4 @@ featuresWithTest :: String -> Features
 featuresWithTest testName = Features $ [Feature "n" [UserStory "us" [(criteria testName)]]]
   where
     criteria :: String -> Criteria
-    criteria testName = Criteria "c" testName Missing []
+    criteria testName = Criteria "c" testName Missing "---"  []

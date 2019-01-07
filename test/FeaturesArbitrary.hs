@@ -32,7 +32,7 @@ instance Arbitrary Criteria where
     testName <- arbitrary
     status <- arbitrary
     steps <- limitedListOf arbitrary
-    return $ Criteria name testName status steps
+    return $ Criteria name testName status "---" steps
 
 instance Arbitrary Step where
   arbitrary = fmap Step arbitrary

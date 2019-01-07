@@ -73,12 +73,12 @@ instance Completed a => Completed [a] where
       countFailing ics = length $ filter isFailing ics
 
 instance Completed Criteria where
-  isCompleted (Criteria _ _ Done _ ) = Successful
-  isCompleted (Criteria _ _ Missing _ ) = NotDefined
-  isCompleted (Criteria _ _ (NotDone NotImplemented) _ ) = InProgress (0, 1)
-  isCompleted (Criteria _ _ (NotDone Failed) _ ) = Failing $ "failed"
-  isCompleted (Criteria _ _ (NotDone Regression) _ ) = Failing $ "regression"
-  isCompleted (Criteria _ _ (NotDone Unknown) _ ) = Failing $ "unknown"
+  isCompleted (Criteria _ _ Done _ _ ) = Successful
+  isCompleted (Criteria _ _ Missing _ _ ) = NotDefined
+  isCompleted (Criteria _ _ (NotDone NotImplemented) _ _ ) = InProgress (0, 1)
+  isCompleted (Criteria _ _ (NotDone Failed) _ _ ) = Failing $ "failed"
+  isCompleted (Criteria _ _ (NotDone Regression) _ _ ) = Failing $ "regression"
+  isCompleted (Criteria _ _ (NotDone Unknown) _ _ ) = Failing $ "unknown"
 
 instance ToJSON Features where
   toJSON a = object [

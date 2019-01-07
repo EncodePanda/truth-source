@@ -65,19 +65,19 @@ spec =
       isCompleted fs `shouldBe` Successful
 
 criterionMissing :: Criteria
-criterionMissing = Criteria "_" "_" Missing []
+criterionMissing = Criteria "_" "_" Missing "---" []
 
 criterionDone :: Criteria
-criterionDone = Criteria "_" "_" Done []
+criterionDone = Criteria "_" "_" Done "---" []
 
 criterionNotImplemented :: Criteria
-criterionNotImplemented = Criteria "_" "_" (NotDone NotImplemented) []
+criterionNotImplemented = Criteria "_" "_" (NotDone NotImplemented) "---" []
 
 criterionFailed :: Criteria
-criterionFailed = Criteria "_" "_" (NotDone Failed) []
+criterionFailed = Criteria "_" "_" (NotDone Failed) "---" []
 
 criterionRegression :: Criteria
-criterionRegression = Criteria "_" "_" (NotDone Regression) []
+criterionRegression = Criteria "_" "_" (NotDone Regression) "---" []
 
 userStoryAllMissing :: UserStory
 userStoryAllMissing = UserStory "" [criterionMissing, criterionMissing, criterionMissing]
