@@ -35,7 +35,7 @@ data Criteria = Criteria { _criteriaName :: String
 newtype Step = Step String
   deriving (Show, Eq, Generic)
 
-data Status = Done | NotDone TestStatus | Missing
+data Status = Done | NotDone TestStatus | Missing | External
   deriving (Show, Eq, Generic)
 
 makeLenses ''Features
@@ -99,7 +99,7 @@ addHrefToCriteriaInUserStory :: UserStory -> String -> UserStory
 addHrefToCriteriaInUserStory (UserStory storyName crits) href = (UserStory storyName ((init crits) ++ [(addHrefToCriteria (last crits) href)]))
   where
     addHrefToCriteria :: Criteria -> String -> Criteria
-    addHrefToCriteria (Criteria cn tn st hr s) href = Criteria cn tn st href s
+    addHrefToCriteria (Criteria cn tn st hr s) href = Criteria cn tn External href s
 
 addStepsToCriteriaInUserStory :: UserStory -> [[Block]] -> UserStory
 addStepsToCriteriaInUserStory (UserStory n crs) blocks = UserStory n ((init crs) ++ [addStepsToCriteria (last crs) (blocksToSteps blocks)])

@@ -31,12 +31,12 @@ spec = do
       Features {_features = [
         Feature {_featureName = "Nodes", _userStories = [
           UserStory  {_userStoryDesc = "As a Node Operator, I want to install software from binary artifacts or a Docker image", _criteria = [
-            Criteria  {_criteriaName = "Install rnode using tarball", _testName = "not available", _status = Missing, _href = "https://github.com/rchain/rchain/#installing-and-running-on-debian-from-deb-package", _steps = []},
-            Criteria  {_criteriaName = "Install rnode using docker", _testName = "not available", _status = Missing, _href = "https://github.com/rchain/rchain/#installing-and-running-on-docker", _steps = []}]},
+            Criteria  {_criteriaName = "Install rnode using tarball", _testName = "not available", _status = External, _href = "https://github.com/rchain/rchain/#installing-and-running-on-debian-from-deb-package", _steps = []},
+            Criteria  {_criteriaName = "Install rnode using docker", _testName = "not available", _status = External, _href = "https://github.com/rchain/rchain/#installing-and-running-on-docker", _steps = []}]},
           UserStory  {_userStoryDesc = "As a Node Operator, I want to run software on Linux, macOS, and in Docker", _criteria = [
-            Criteria  {_criteriaName = "Run rnode on Linux", _testName = "not available", _status = Missing, _href = "https://github.com/rchain/rchain/#installing-and-running-on-debian-from-deb-package", _steps = []},
-            Criteria  {_criteriaName = "Run rnode on macOS", _testName = "not available", _status = Missing, _href = "https://github.com/rchain/rchain/#installing-and-running-on-macos-via-homebrew", _steps = []},
-            Criteria  {_criteriaName = "Run rnode on docker", _testName = "not available", _status = Missing, _href = "https://github.com/rchain/rchain/#installing-and-running-on-docker", _steps = []}]},
+            Criteria  {_criteriaName = "Run rnode on Linux", _testName = "not available", _status = External, _href = "https://github.com/rchain/rchain/#installing-and-running-on-debian-from-deb-package", _steps = []},
+            Criteria  {_criteriaName = "Run rnode on macOS", _testName = "not available", _status = External, _href = "https://github.com/rchain/rchain/#installing-and-running-on-macos-via-homebrew", _steps = []},
+            Criteria  {_criteriaName = "Run rnode on docker", _testName = "not available", _status = External, _href = "https://github.com/rchain/rchain/#installing-and-running-on-docker", _steps = []}]},
           UserStory  {_userStoryDesc = "As a dApp Developer, I want to interface with the Rholang interpreter and evaluate smart contracts independently from the blockchain", _criteria = [
             Criteria  {_criteriaName = "A contract being run using rnode eval", _testName = "test/test_eval.py::test_eval", _status = Missing, _href = "---", _steps = [
               Step "given that rnode is running",
@@ -51,13 +51,13 @@ spec = do
               Step "user executes rholang code that is \"foo\"",
               Step "program exists with 1 and prints out coop.rchain.rholang.interpreter.errorsTopLevelFreeVariablesNotAllowedError"]}]},
           UserStory  {_userStoryDesc = "As a Node Operator, I want to have a default configuration and the ability to customize the configuration on the command line", _criteria = [
-            Criteria  {_criteriaName = "Configure rnode using rnode.toml", _testName = "not available", _status = Missing, _href = "https://github.com/rchain/rchain/#configuration-file", _steps = []},
-            Criteria  {_criteriaName = "Configure rnode using command line flags", _testName = "not available", _status = Missing, _href = "https://github.com/rchain/rchain/#configuration-flags", _steps = []}]},
+            Criteria  {_criteriaName = "Configure rnode using rnode.toml", _testName = "not available", _status = External, _href = "https://github.com/rchain/rchain/#configuration-file", _steps = []},
+            Criteria  {_criteriaName = "Configure rnode using command line flags", _testName = "not available", _status = External, _href = "https://github.com/rchain/rchain/#configuration-flags", _steps = []}]},
           UserStory  {_userStoryDesc = "As a Node Operator, I want to monitor the performance, resource consumption, and status of my node", _criteria = [
-            Criteria  {_criteriaName = "Monitor resource consumption and status", _testName = "not available", _status = Missing, _href = "https://github.com/rchain/rchain/#monitor-resource-consumption", _steps = []},
-            Criteria  {_criteriaName = "Monitor performance", _testName = "not available", _status = Missing, _href = "https://github.com/rchain/rchain/#monitor-performance", _steps = []}]},
+            Criteria  {_criteriaName = "Monitor resource consumption and status", _testName = "not available", _status = External, _href = "https://github.com/rchain/rchain/#monitor-resource-consumption", _steps = []},
+            Criteria  {_criteriaName = "Monitor performance", _testName = "not available", _status = External, _href = "https://github.com/rchain/rchain/#monitor-performance", _steps = []}]},
           UserStory  {_userStoryDesc = "As a Node Operator, when I start rnode, I want to provide my validator key and wallet key", _criteria = [
-            Criteria  {_criteriaName = "Start node with validator key and wallet key", _testName = "not available", _status = Missing, _href = "documentation: https://github.com/rchain/rchain/#starting-node-as-a-validator", _steps = []}]}]},
+            Criteria  {_criteriaName = "Start node with validator key and wallet key", _testName = "not available", _status = External, _href = "documentation: https://github.com/rchain/rchain/#starting-node-as-a-validator", _steps = []}]}]},
         Feature {_featureName = "Peer to Peer Network", _userStories = [
           UserStory  {_userStoryDesc = "As a Node operator, I want to be able to bootstrap to the network by connecting to any known node", _criteria = [
             Criteria  {_criteriaName = "connecting to existing node", _testName = "test/test_p2p.py::test_connecting_to_existing_node", _status = Missing, _href = "---", _steps = [
@@ -166,7 +166,7 @@ spec = do
           UserStory  {_userStoryDesc = "As a dApp organization, I need to have multiple approvers for any send transaction.", _criteria = []}]},
         Feature {_featureName = "Validation", _userStories = [
           UserStory  {_userStoryDesc = "As a RChain validator, I want my validator identity to be different from the identity of my node and from the identity of my wallet", _criteria = [
-            Criteria  {_criteriaName = "TBD", _testName = "not available", _status = Missing, _href = "TBD", _steps = []}]},
+            Criteria  {_criteriaName = "TBD", _testName = "not available", _status = External, _href = "TBD", _steps = []}]},
           UserStory  {_userStoryDesc = "As a RChain validator, I want to know when a block I propose is finalized and with what degree of confidence", _criteria = [
             Criteria  {_criteriaName = "TBD", _testName = "TBD", _status = Missing, _href = "---", _steps = [
               Step "run p2p network",
